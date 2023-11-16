@@ -1,7 +1,7 @@
-exports.RegisterUser = (fullname, email, hashedpassword, salt, appRole) => {
-    return `INSERT INTO users (fullname,email,hashedpassword,salt,appRole) 
+exports.RegisterUser = (fullname, email, hashedpassword, salt, appRole,verified) => {
+    return `INSERT INTO users (fullname,email,hashedpassword,salt,appRole,isVerified) 
     VALUES('${fullname}','${email}',
-       '${hashedpassword}','${salt}','${appRole}')`
+       '${hashedpassword}','${salt}','${appRole}','${verified}')`
 }
 
 exports.getUserbyEmail = email => {
@@ -34,7 +34,7 @@ exports.getProjectbyEmailUser = (email) => {
 
 
 exports.deleteProject = (id,email) => {
-    return `DELETE FROM PROJECTS WHERE id=${id} AND Adminemail ='${email}'`
+    return `DELETE FROM PROJECTS WHERE pid=${id}`
 }
 
 exports.getUserbytitle = (title) => {

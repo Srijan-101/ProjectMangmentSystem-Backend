@@ -27,7 +27,8 @@ exports.signUp = (req, res) => {
             req.body.email,
             hashedpassword,
             salt,
-            req.body.appRole
+            req.body.appRole,
+            '1'
         ),
         err => {
             if (err) {
@@ -88,8 +89,8 @@ exports.ResendVerify = (req, res) => {
                     process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1h' }
                 )
                 const emailData = {
-                    from: process.env.EMAIL_FROM,
-                    to: email,
+                    from: 'srijan.181743@ncit.edu.np',
+                    to:email,
                     subject: `Account activation link`,
                     html: `<h2>please use this link to activate your account</h2>
                                     <h4>${process.env.CLIENT_URL}/auth/activate/${token}</h4>
@@ -101,6 +102,7 @@ exports.ResendVerify = (req, res) => {
                 sendgridmail
                     .send(emailData)
                     .then(sent => {
+                        console.log(sent);
                         return res.status(200).json({
                             message: `Email has been send to ${email}.Follow the instruction to activate your account.`
                         })
@@ -172,8 +174,9 @@ exports.Login = (req, res) => {
             return res.status(400).json({
                 error: 'The email you entered isn’t connected to an account.Please check your email and try again.'
             })
+            
         } else {
-
+           
             const passwordHelperObj = new passwordManager(
                 req.body.password,
                 result[0].hashedpassword,

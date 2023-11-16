@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { signUp, Login, accountActivation, forgotPassword, resetPassword, ResendVerify } = require('../Controller/user.controller')
-const {addProject,Fetchproject, fetchUser,addTask,getTask,getTaskbyEmail,updateStatus} = require('../Controller/project.controller');
+const {addProject,Fetchproject, fetchUser,addTask,getTask,getTaskbyEmail,updateStatus,deleteProject} = require('../Controller/project.controller');
 
 
 
@@ -19,6 +19,7 @@ router.post('/resendVerify', ResendVerify);
 
 router.post('/addProject', addProject);
 router.get('/fetchproject/:email/',Fetchproject)
+router.delete('/deleteproject',deleteProject)
 router.get('/getEmail/:title/',fetchUser)
 
 

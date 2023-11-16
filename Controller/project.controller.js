@@ -1,5 +1,5 @@
 const conn = require("../Dbconnection/connection");
-const { insertProject, getUserbyEmail,getProjectbyEmailUser, getUserbytitle,addTask,getTask,getTaskbyEmail,updateStatus} = require("../Query/query");
+const { insertProject, getUserbyEmail,getProjectbyEmailUser, getUserbytitle,addTask,getTask,getTaskbyEmail,updateStatus,deleteProject} = require("../Query/query");
 
 exports.addProject = (req,res) => {
     const {title,projectDescription,workerEmail,Adminemail,sDate} = req.body;
@@ -53,13 +53,15 @@ exports.fetchUser = (req,res) => {
 
 exports.deleteProject = (req,res) => {
     const {id,Adminemail} = req.body;
-    conn.query(deleteProject(id,email),(err,result) => {
+    conn.query(deleteProject(id,email = Adminemail),(err,result) => {
            if(err) {
-            res.status(400).json({
+            console.log(err);
+            return res.status(400).json({
                 message : "ERROR"
              })
            }
-          return  res.status(200);
+          console.log(result);
+          return res.status(200);
      })
 }
 
